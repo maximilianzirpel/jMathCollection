@@ -6,11 +6,20 @@ package de.zirpel.jmathcollection.geometry.twoD;
 import de.zirpel.jmathcollection.geometry.CoordinateSystem;
 
 /**
- *
+ * Implementation of CoordinateSystem for two dimenions.
+ * 
  * @author Maximilian Zirpel
  */
 public class CoordinateSystem2D implements CoordinateSystem<Vector2D>{
     
+    /**
+     * Calculates angles betwenn two vectors.
+     * 
+     * @param vectorA vector A
+     * @param vectorB vector B
+     * 
+     * @return angle between A and B 
+     */
     public double angle(Vector2D vectorA, Vector2D vectorB) {
         return Math.acos(scalarProduct(vectorA, vectorB)/(value(vectorA)*value(vectorB)));
     }
