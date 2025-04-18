@@ -21,11 +21,9 @@ public class CoordinateSystem2D implements CoordinateSystem<Vector2D>{
      * @return angle between A and B (returns NaN if either vector has value 0)
      */
     public double angle(Vector2D vectorA, Vector2D vectorB) {
-        var valueA = value(vectorA);
-        var valueB = value(vectorB);
         double angle = Double.NaN; 
-        if (valueA != 0.0 && valueB != 0.0) {
-            angle = Math.acos(scalarProduct(vectorA, vectorB)/(valueA*valueB));
+        if (value(vectorA) != 0.0 && value(vectorB) != 0.0) {
+            angle = Math.acos(scalarProduct(vectorA, vectorB)/(value(vectorA)*value(vectorB)));
         } 
         return angle;
     }
@@ -76,6 +74,17 @@ public class CoordinateSystem2D implements CoordinateSystem<Vector2D>{
     public void addVectors(Vector2D vectorA, Vector2D vectorB, Vector2D resultVector) {
         resultVector.setX(vectorA.getX()+vectorB.getX());
         resultVector.setY(vectorA.getY()+vectorB.getY());
+    }
+
+    @Override
+    public Vector2D rotate(double angle, Vector2D vector) {
+        return new Vector2D(Math.cos(angle)*vector.getX() - Math.sin(angle)*vector.getY(), Math.sin(angle)*vector.getX() + Math.cos(angle)*vector.getY());
+    }
+
+    @Override
+    public void rotate(double angle, Vector2D vector, Vector2D resultVector) {
+        resultVector.setX(Math.cos(angle)*vector.getX() - Math.sin(angle)*vector.getY());
+        resultVector.setY(Math.sin(angle)*vector.getX() + Math.cos(angle)*vector.getY());
     }
     
 }

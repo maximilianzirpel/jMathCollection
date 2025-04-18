@@ -97,4 +97,23 @@ public interface CoordinateSystem<V extends Vector> {
      * @param resultVector vector object to store result
      */
     void addVectors(V vectorA, V vectorB, V resultVector);
+    
+    /**
+     * Rotates a vector by an angle.
+     * 
+     * @param angle angle in radian
+     * @param vector vector to rotate
+     * 
+     * @return rotated vector 
+     */
+    V rotate(double angle, V vector);
+    
+    /**
+     * Rotates a vector by an angle.
+     * 
+     * @param angle angle in radian
+     * @param vector vector to rotate
+     * @param resultVector vector object to store result
+     */
+    void rotate(double angle, V vector, V resultVector);
 }

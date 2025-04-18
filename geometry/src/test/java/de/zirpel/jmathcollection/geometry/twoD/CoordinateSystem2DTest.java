@@ -18,7 +18,7 @@ public class CoordinateSystem2DTest {
     
     private static Logger LOG;
     
-    private static final double D_DELTA = 0.0001;
+    private static final double D_DELTA = Math.pow(10.0, -7);
     
     @BeforeAll
     public static void setup() {
@@ -131,7 +131,8 @@ public class CoordinateSystem2DTest {
         CoordinateSystem2D cs = new CoordinateSystem2D();
         Vector2D expResult = new Vector2D(-2, 5);
         Vector2D result = cs.directionVector(vectorA, vectorB);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getX(), result.getX(), D_DELTA);
+        assertEquals(expResult.getY(), result.getY(), D_DELTA);
     }
 
     /**
@@ -199,7 +200,8 @@ public class CoordinateSystem2DTest {
         CoordinateSystem2D cs = new CoordinateSystem2D();
         Vector2D expResult = new Vector2D(4.2, 2.1);
         Vector2D result = cs.scalarMultiplication(scalar, vector);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getX(), result.getX(), D_DELTA);
+        assertEquals(expResult.getY(), result.getY(), D_DELTA);
     }
 
     /**
@@ -232,7 +234,8 @@ public class CoordinateSystem2DTest {
         CoordinateSystem2D cs = new CoordinateSystem2D();
         Vector2D expResult = new Vector2D(5, 2);
         Vector2D result = cs.addVectors(vectorA, vectorB);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getX(), result.getX(), D_DELTA);
+        assertEquals(expResult.getY(), result.getY(), D_DELTA);
     }
 
     /**
@@ -249,6 +252,46 @@ public class CoordinateSystem2DTest {
         
         double expectedX = 5;
         double expectedY = 2;
+        
+        assertEquals(expectedX, resultVector.getX(), D_DELTA);
+        assertEquals(expectedY, resultVector.getY(), D_DELTA);
+    }
+    
+    @Test
+    public void testRotate_double_Vector2D() {
+        LOG.info(String.format("Test rotating vector"));
+        Vector2D vector = new Vector2D(1, 0);
+        double angle = Math.PI/2.0;
+        CoordinateSystem2D cs = new CoordinateSystem2D();
+        Vector2D expResult = new Vector2D(0, 1);
+        Vector2D result = cs.rotate(angle, vector);
+        assertEquals(expResult.getX(), result.getX(), D_DELTA);
+        assertEquals(expResult.getY(), result.getY(), D_DELTA);
+        
+        result = cs.rotate(-angle, vector);
+        expResult.setY(-1);
+        assertEquals(expResult.getX(), result.getX(), D_DELTA);
+        assertEquals(expResult.getY(), result.getY(), D_DELTA);
+    }
+    
+    @Test
+    public void testRotate_3args() {
+        LOG.info(String.format("Test rotating vector"));
+        Vector2D vector = new Vector2D(1, 0);
+        double angle = Math.PI/2.0;
+        Vector2D resultVector = new Vector2D();
+        CoordinateSystem2D cs = new CoordinateSystem2D();
+        cs.rotate(angle, vector, resultVector);
+        
+        double expectedX = 0;
+        double expectedY = 1;
+        
+        assertEquals(expectedX, resultVector.getX(), D_DELTA);
+        assertEquals(expectedY, resultVector.getY(), D_DELTA);
+        
+        cs.rotate(-angle, vector, resultVector);
+        
+        expectedY = -1;
         
         assertEquals(expectedX, resultVector.getX(), D_DELTA);
         assertEquals(expectedY, resultVector.getY(), D_DELTA);
