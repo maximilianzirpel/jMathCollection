@@ -5,8 +5,12 @@
     <artifactId>jMathCollection-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.12.2</junit.version>
+        <log4j.version>2.24.3</log4j.version>
+        <maven.compiler.release>24</maven.compiler.release>
     </properties>
     
     <modules>

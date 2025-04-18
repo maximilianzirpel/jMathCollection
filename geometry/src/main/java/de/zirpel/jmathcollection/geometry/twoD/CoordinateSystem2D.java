@@ -13,15 +13,21 @@ import de.zirpel.jmathcollection.geometry.CoordinateSystem;
 public class CoordinateSystem2D implements CoordinateSystem<Vector2D>{
     
     /**
-     * Calculates angles betwenn two vectors.
+     * Calculates angles between two vectors.
      * 
      * @param vectorA vector A
      * @param vectorB vector B
      * 
-     * @return angle between A and B 
+     * @return angle between A and B (returns NaN if either vector has value 0)
      */
     public double angle(Vector2D vectorA, Vector2D vectorB) {
-        return Math.acos(scalarProduct(vectorA, vectorB)/(value(vectorA)*value(vectorB)));
+        var valueA = value(vectorA);
+        var valueB = value(vectorB);
+        double angle = Double.NaN; 
+        if (valueA != 0.0 && valueB != 0.0) {
+            angle = Math.acos(scalarProduct(vectorA, vectorB)/(valueA*valueB));
+        } 
+        return angle;
     }
 
     @Override
